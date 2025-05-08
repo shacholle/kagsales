@@ -68,3 +68,5 @@ python test_sales_forecast.py
 * GET /reload - Reload the model from the registry. Useful if the model is updated in the registry.
 * POST /predict - Predict sales for a given date, store, and item
    - {"date": "2018-01-21", "store": 10, "item": 23}
+
+When the serve application is running, the documentation of the API endpoints is available at: http://localhost:8000/docs#/
