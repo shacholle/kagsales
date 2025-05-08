@@ -1,0 +1,14 @@
+ipykernel
+pandas
+numpy
+datetime
+matplotlib
+seaborn
+scikit-learn
+statsmodels
+plotly
+plotly_express
+nbformat
+xgboost
+lightgbm
+prophet

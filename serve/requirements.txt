@@ -1,0 +1,6 @@
+fastapi
+ray[serve]
+requests
+datetime
+numpy
+lightgbm

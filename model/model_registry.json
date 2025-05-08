@@ -1,0 +1,5 @@
+{"model_type": "lightgbm", 
+ "model_file": "https://raw.githubusercontent.com/shacholle/kagsales/refs/heads/main/model/lgb_model.txt",
+ "input_guardrails" : {"min_date": "2018-01-01", "max_date": "2018-03-31", "store_id_max": 10, "item_id_max": 50},
+ "output_guardrails" : {"max_value": 200.0}
+}
