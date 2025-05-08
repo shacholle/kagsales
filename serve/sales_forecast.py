@@ -29,6 +29,7 @@ def load_model(model_registry_url):
     return model, model_info['input_guardrails'], model_info['output_guardrails']
 
 # Ray Serve deployment
+# Multiple replicas serving the model, can be autoscaled with parameters.
 @serve.deployment(num_replicas=2, ray_actor_options={"num_cpus": 0.2, "num_gpus": 0})
 # @serve.deployment()
 @serve.ingress(app)
