@@ -70,3 +70,29 @@ python test_sales_forecast.py
    - {"date": "2018-01-21", "store": 10, "item": 23}
 
 When the serve application is running, the documentation of the API endpoints is available at: http://localhost:8000/docs#/
+
+# Notes on Model Serving with Ray Serve
+
+Model serving is the process of deploying machine learning models to production so that they can be accessed and used by applications or users. It involves creating an API or interface that allows users to send requests to the model and receive predictions in response. There are several libraries and frameworks available for model serving, each with its own features and capabilities. Cloud providers like AWS, Azure, and GCP also offer their own model serving solutions. For this project, we are using Ray Serve and FastAPI.
+
+
+### What is Ray Serve?
+Ray Serve is a scalable model serving library that allows you to deploy and manage machine learning models in production. With Ray Serve, you can easily create a scalable and distributed serving architecture that can handle high traffic and large workloads. It is built on top of Ray, a distributed computing framework that allows you to run Python code in parallel across multiple machines. Ray Serve provides a simple API for deploying and managing models, as well as features like autoscaling, load balancing, and versioning.
+
+Ray Serve is designed to be easy to use and integrate with existing machine learning workflows. It supports a wide range of machine learning frameworks, including TensorFlow, PyTorch, and Scikit-learn. Ray Serve also provides a simple way to deploy models as REST APIs, using FastAPI, making it easy to integrate with web applications and other services.
+
+More information: https://docs.ray.io/en/latest/serve/index.html
+
+### Why not use just FastAPI or Flask?
+We could have simply used FastAPI or Flask to create a REST API for the model, but Ray Serve provides additional features like autoscaling and load balancing that make it a better choice for production deployments. Ray Serve also allows you to easily deploy multiple models and manage their versions, which can be useful in a production environment where you may need to deploy multiple models or update existing ones.
+
+### Status endpoint
+'/status' and also the root endpoint '/' are used to check if the model is alive and running. This is useful for monitoring and debugging purposes.
+
+
+### Loading the model and making predictions
+When the application starts, the model is loaded into memory from the registry using the `load_model` function. The `predict` function is called when a request is received. The model is not reloaded for each request, which can improve performance. If the frequency of requests is low, we can offload the model to disk and reload it when a request is received. However, for this project, want to showcase the scalability of Ray Serve, so we are keeping the model in memory. 
+
+### Reloading the model
+
+In a production environment, the model may be updated or replaced with a new version. To show case reloading the model, we can use the `/reload` endpoint. This will reload the model from the registry and update the predictions. This is useful when we want to update the model without restarting the application. The assumption is that the model is updated in the registry and the new version is available. Ideally, we should have a versioning system in place to manage the different versions of the model. This can be done using a model registry like MLflow.
